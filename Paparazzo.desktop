@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Version=1.0
+Name=Paparazzo
+GenericName=Screenrecorder
+Comment=Record the content of your screen
+Comment[de]=Internetzugriff
+Exec=paparazzo
+Terminal=false
+Icon=paparazzo
+Type=Application
+Categories=GTK;Multimedia;
+Name[de_DE]=Paparazzo.desktop
