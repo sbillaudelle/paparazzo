@@ -17,7 +17,7 @@
 # MA 02110-1301, USA.
 
 import math
-from gi.repository import Gtk as gtk, Gdk as gdk, GdkX11 as gdkx11, GObject as gobject
+from gi.repository import Gtk as gtk, GObject as gobject
 import cairo
 
 def rounded_rectangle(cr, x, y, w, h, r=20):

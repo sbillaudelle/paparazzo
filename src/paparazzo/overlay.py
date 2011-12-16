@@ -21,8 +21,6 @@ import math
 from gi.repository import Gtk as gtk, Gdk as gdk, GObject as gobject
 import cairo
 
-ICON_SIZE = 32
-
 def rounded_rectangle(cr, x, y, w, h, r=20):
 
     if r >= h / 2.0:
@@ -57,7 +55,6 @@ class Overlay(gtk.Window):
         self.connect('map-event', self.map_cb)
     
         self._selection = (100, 100, width-200, height-200)
-        print(self._selection)
         self._selecting = False
         self._selection_origin = (0, 0)
 

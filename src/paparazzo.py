@@ -17,7 +17,6 @@
 # MA 02110-1301, USA.
 
 import os
-import sys
 import signal
 import subprocess
 import threading
@@ -91,7 +90,6 @@ class Subprocess(gobject.GObject):
 
 
     def exited_cb(self, pid, condition):
-        print("EXITED")
         self.emit('exited', pid, condition)
 
 
@@ -106,8 +104,10 @@ class Recorder:
     def start(self, x, y, width, height):
 
         self.path = mkstemp(suffix='.avi')[1]
+        
+        even = lambda x: x+1 if x%2 != 0 else x
 
-        self.proc = Subprocess('ffmpeg -y -f x11grab -r 25 -s {0},{1} -i :0.0+{2},{3} -vcodec libx264 {4}'.format(width, height, x, y, self.path).split(' '))
+        self.proc = Subprocess('ffmpeg -y -f x11grab -r 25 -s {0},{1} -i :0.0+{2},{3} -vcodec libx264 {4}'.format(even(width), even(height), x, y, self.path).split(' '))
         self.proc.run()
         
 
