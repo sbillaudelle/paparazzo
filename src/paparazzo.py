@@ -146,30 +146,8 @@ class Screencast:
         
     def callback(self, key, data):
     
-        def copy(src, dst):
-            source = gio.File.new_for_path(src)
-            dest = gio.File.new_for_uri(dst)
-            
-            global c
-            c = 0
-
-            def progress_cb(level, overall, data):
-                global c
-                progress = level/overall
-                if c%100 == 0:
-                    gdk.threads_enter()
-                    self.progress_bar.set_fraction(progress)
-                    self.progress_bar.set_text("{0}%".format(int(progress*100)))
-                    while loop.get_context().pending():
-                        loop.get_context().iterate()
-                    gdk.threads_leave()
-                if progress == 1:
-                    self.progress_dialog.hide()
-                c += 1
-
-            source.copy(dest, gio.FileCopyFlags.OVERWRITE, None, progress_cb, None)
-            loop.quit()
-            
+        def progress_cb(*args):
+            pass
     
         self.recorder.stop()
         
@@ -181,21 +159,11 @@ class Screencast:
         
         filechooser.hide()
         
-        self.progress_dialog = gtk.Dialog("Saving…", buttons=(gtk.STOCK_CANCEL, gtk.ResponseType.CANCEL))
-        self.progress_dialog.get_action_area().get_children()[0].connect('button-release-event', lambda *args: loop.quit())
-        self.progress_dialog.set_type_hint(gdk.WindowTypeHint.NORMAL)
-        
-        self.progress_bar = gtk.ProgressBar()
-        self.progress_bar.set_show_text(True)
-        self.progress_bar.set_size_request(320, -1)
-        
-        content_area = self.progress_dialog.get_content_area().add(self.progress_bar)
-        
         if res == gtk.ResponseType.ACCEPT:
-            self.progress_dialog.show_all()
-            thread = threading.Thread(target=copy, args=(self.recorder.get_path(), filechooser.get_uri()))
-            thread.daemon = True
-            thread.start()
+            source = gio.File.new_for_path(self.recorder.get_path())
+            dest = gio.File.new_for_uri(filechooser.get_uri())
+            source.copy(dest, gio.FileCopyFlags.OVERWRITE, None, progress_cb, None)
+            loop.quit()
         else:
             loop.quit()
         
