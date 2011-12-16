@@ -116,9 +116,9 @@ class Countdown(gtk.Window):
             ctx.show_text("In order to stop recording,")
             ctx.stroke()
             
-            x_bearing, y_bearing, w, h = ctx.text_extents("please press Ctrl+Del!")[:4]
+            x_bearing, y_bearing, w, h = ctx.text_extents("please press Ctrl+Esc!")[:4]
             ctx.move_to((width - w) / 2 - x_bearing, (height - h) / 2 - y_bearing + 20)
-            ctx.show_text("please press Ctrl+Del!")
+            ctx.show_text("please press Ctrl+Esc!")
             ctx.stroke()
         elif self.counter > 0:
             ctx.set_font_size(120)
