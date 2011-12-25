@@ -22,7 +22,7 @@ setup(
     url = 'http://github.com/sbillaudelle/paparazzo',
     package_dir = {'paparazzo': 'src/paparazzo'},
     packages = ['paparazzo'],
-    data_files = [('share/icons', ['paparazzo.png']), ('share/applications', ['Paparazzo.desktop'])],
+    data_files = [('share/icons', ['paparazzo.png']), ('share/applications', ['paparazzo.desktop'])],
     cmdclass={'install_scripts': post_install},
     scripts = ['src/paparazzo.py']
 )
